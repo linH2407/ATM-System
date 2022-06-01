@@ -6,6 +6,7 @@ import InputAmount from "./components/molecules/InputAmount";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Acc from "./pages/Acc";
+import Amount from "./pages/Amount";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -29,9 +30,8 @@ function App() {
             path="balance-inquiry"
             element={<BalanceInquiry users={users} />}
           />
-          <Route path="withdrawal" element={<Withdrawal />}>
-            <Route path="input" element={<InputAmount />} />
-          </Route>
+          <Route path="withdrawal" element={<Withdrawal />} />
+          <Route path="withdrawal/amount" element={<Amount />} />
         </Route>
       </Routes>
     </div>
