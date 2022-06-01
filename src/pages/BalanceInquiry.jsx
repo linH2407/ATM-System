@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../molecules/Button";
+import Button from "../components/molecules/Button";
 
 const BalanceInquiry = () => {
   return (

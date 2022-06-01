@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import BalanceInquiry from "./pages/BalanceInquiry";
 import Withdrawal from "./pages/Withdrawal";
-
+import InputAmount from "./components/molecules/InputAmount";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
-import InputAmount from "./molecules/InputAmount";
+import Acc from "./pages/Acc";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -23,9 +23,15 @@ function App() {
     <div className="max-w-[60%] mx-auto mt-6">
       <Routes>
         <Route path="/" element={<Home users={users} />} />
-        <Route path="account" element={<Menu users={users} />}>
-          <Route path="balanceInquiry" element={<BalanceInquiry />} />
-          <Route path="withdrawal" element={<Withdrawal />} />
+        <Route path="account/:id" element={<Acc users={users} />}>
+          <Route element={<Menu />} index />
+          <Route
+            path="balance-inquiry"
+            element={<BalanceInquiry users={users} />}
+          />
+          <Route path="withdrawal" element={<Withdrawal />}>
+            <Route path="input" element={<InputAmount />} />
+          </Route>
         </Route>
       </Routes>
     </div>

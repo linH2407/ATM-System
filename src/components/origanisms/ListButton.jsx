@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import Button from "../molecules/Button";
+import Button from "../components/molecules/Button";
 import BalanceInquiry from "../pages/BalanceInquiry";
 
 const ListButton = ({show, setShow}) => {
   return (
     <div>
-      {show && (
+      {/* {show && (
         <div className="mt-20 flex justify-between">
           <div>
             <Link onClick={() => setShow(false)} to="/account/balanceInquiry">
@@ -24,7 +24,7 @@ const ListButton = ({show, setShow}) => {
           </div>
         </div>
       )}
-      <Outlet />
+      <Outlet /> */}
     </div>
   );
 };
