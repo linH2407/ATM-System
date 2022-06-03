@@ -11,7 +11,7 @@ const LineTable = ({ user }) => {
       </Link>
 
       <td className="border-2 pl-4">{user.accPhone}</td>
-      <td className="border-2 pl-4">{user.amount}</td>
+      <td className="border-2 pl-4">{user.amount}$</td>
 
       <td className="border-2 pl-4">{user.accNumber}</td>
       <td className="border-2 pl-4">{user.pin}</td>
