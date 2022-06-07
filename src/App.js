@@ -5,18 +5,14 @@ import Withdrawal from "./pages/Withdrawal";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Acc from "./pages/Acc";
+import { getAll } from "./services/bankaccount";
 
 function App() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    async function fetchListUser() {
-      const url = "https://628dcec6a339dfef87a09158.mockapi.io/api/users";
-      const response = await fetch(url);
-      const responseJSON = await response.json();
-      const data = responseJSON;
-      setUsers(data);
-    }
-    fetchListUser();
+    getAll().then((users) => {
+      setUsers(users);
+    });
   }, []);
   return (
     <div className="max-w-[60%] mx-auto mt-20">
@@ -26,7 +22,7 @@ function App() {
           <Route element={<Menu />} index />
           <Route
             path="balance-inquiry"
-            element={<BalanceInquiry users={users} />}
+            element={<BalanceInquiry  />}
           />
           <Route path="withdrawal" element={<Withdrawal />} />
         </Route>

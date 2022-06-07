@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Table from "../components/origanisms/Table";
+import React from "react";
+import Table from "../components/organisms/Table";
 
 const Home = ({ users }) => {
   return (

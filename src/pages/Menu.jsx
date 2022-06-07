@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import Button from "../components/molecules/Button";
+import { getUser } from "../services/bankaccount";
 
 const Menu = () => {
   const [user, setUser] = useState([]);
@@ -8,10 +9,7 @@ const Menu = () => {
 
   useEffect(() => {
     const id = params.id;
-    //const id = location.state.id.user.id;
-    fetch(`https://628dcec6a339dfef87a09158.mockapi.io/api/users/${id}`)
-      .then((response) => response.json())
-      .then((data) => setUser(data));
+    getUser(id).then((data) => setUser(data));
   }, []);
 
   return (
@@ -27,7 +25,6 @@ const Menu = () => {
             <h1>: {user.accPhone}</h1>
           </div>
         </div>
-        {/* <h1 className="text-4xl font-semibold mb-4">Profile</h1> */}
         <div className="mt-20 flex justify-between">
           <div>
             <Link
@@ -38,11 +35,7 @@ const Menu = () => {
             </Link>
             <Link
               state={{ id: { user } }}
-              to={
-                user.amount <= 50000
-                  ? `/account/${user.id}/balance-inquiry`
-                  : `/account/${user.id}/withdrawal`
-              }
+              to={`/account/${user.id}/withdrawal`}
             >
               <Button name="Withdrawal" />
             </Link>

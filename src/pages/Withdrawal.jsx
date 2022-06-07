@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "../components/molecules/Button";
-import Amount from "../components/origanisms/Amount";
+import Amount from "../components/organisms/ConfirmWithdrawal.jsx.jsx";
 
 const Withdrawal = () => {
   const [user, setUser] = useState([]);
   const [money, setMoney] = useState(0);
   const [fee, setFee] = useState(1100);
 
-  const [historyWithdrawal, setHistoryWithdrawal] = useState([]);
 
   const [inputAmount, setInputAmount] = useState();
   const [showInput, setShowInput] = useState(false);
@@ -99,14 +98,14 @@ const Withdrawal = () => {
               <Button name="Confirm" />
             </div>
           </div>
-          <div className="w-1/7 mt-20  float-right">
+          <div className="w-1/7 mt-[60px] float-right">
             <Link to={`/account/${user.id}`}>
               <Button name="Back" />
             </Link>
           </div>
         </div>
       )}
-      {showBill && <Amount money={money} fee={fee} />}
+      {showBill && <Amount user={user} money={money} fee={fee} />}
     </div>
   );
 };

@@ -1,46 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { updateBalance, createWithdraw } from "../../services/bankaccount";
 import Button from "../molecules/Button";
 
-const Amount = ({ money, fee }) => {
-  const [user, setUser] = useState([]);
-  
-  const params = useParams();
+const Amount = ({ user, money, fee }) => {
   const date = new Date();
-  useEffect(() => {
-    const id = params.id;
-    fetch(`https://628dcec6a339dfef87a09158.mockapi.io/api/users/${id}`)
-      .then((response) => response.json())
-      .then((data) => setUser(data));
-  }, []);
+
   const amountRemaining = user.amount - fee - money;
 
-  const handleUpdateAmount = () => {
-   
-    fetch(`https://628dcec6a339dfef87a09158.mockapi.io/api/users/${user.id}`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount: amountRemaining }),
-    }).then((response) => response.json());
+  const handleWithdrawal = () => {
+    updateBalance(user, amountRemaining);
 
-    const data = {
-      accNumber: user.accNumber,
-      amountWithdrawal: money,
-      amountRemaining: amountRemaining,
-      date: date,
-    }
-    fetch(`https://628dcec6a339dfef87a09158.mockapi.io/api/users/${user.id}/withdrawal`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((response) => response.json());
-    // alert("Success");
+    createWithdraw(user, amountRemaining, money, date);
   };
   return (
     <div>
@@ -64,14 +35,16 @@ const Amount = ({ money, fee }) => {
             <h1>: {money}$</h1>
             <h1>: {fee}</h1>
             <h1>
-              : {date.getDate() +
+              :{" "}
+              {date.getDate() +
                 "-" +
                 (date.getMonth() + 1) +
                 "-" +
                 date.getFullYear()}
             </h1>
             <h1>
-              : {date.getHours() +
+              :{" "}
+              {date.getHours() +
                 ":" +
                 date.getMinutes() +
                 ":" +
@@ -81,13 +54,13 @@ const Amount = ({ money, fee }) => {
         </div>
       </div>
       <div className="w-3/4 mx-auto flex justify-between mt-20 ">
-        <div onClick={handleUpdateAmount}>
-          <Link to="/">
+        <div onClick={handleWithdrawal}>
+          <Link to={`/account/${user.id}`}>
             <Button name="Withdrawal with bill" />
           </Link>
         </div>
-        <div onClick={handleUpdateAmount}>
-          <Link to="/">
+        <div onClick={handleWithdrawal}>
+          <Link to={`/account/${user.id}`}>
             <Button name="Withdrawal without bill" />
           </Link>
         </div>
